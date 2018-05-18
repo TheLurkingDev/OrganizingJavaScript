@@ -1,16 +1,9 @@
-$(document).ready(function () {
-    // Referring to a "rel" attribute within another "rel" attribute element.
-    // $("[rel='js-controls'] > [rel*='js-register']")...
+// iife - Immediately Invoked Function Expression
+// Surround the function with parenthesis and place a trailing set of parentheses
+// at the end of the function.
+var Header = (function() {
 
-    // Referring to two elements with separate "rel" attributes.
-    // $("[rel='js-register'], [rel='js-login']").on("click")...
-
-    // Parameters to "on"
-    // Click occurs within 'js-controls' element and then is further restricted
-    // to any element with a "rel" attribute containing 'js-'.
-    // The 3rd parameter to "on" is a callback function, so it fires following the click.
-    var $modal = $("[rel='js-modal'");
-    $("[rel='js-controls']").on("click", "[rel*='js-']", function(evt) {
+    function headerLinkClinks(evt) {
         // Stops event from going further.
         evt.preventDefault();
         evt.stopPropagation();
@@ -23,5 +16,29 @@ $(document).ready(function () {
         .then(function(contents) {
             $modal.html(contents).show();
         });
-    });
-});
+    }
+    
+    
+    function init() {
+        // Referring to a "rel" attribute within another "rel" attribute element.
+        // $("[rel='js-controls'] > [rel*='js-register']")...
+
+        // Referring to two elements with separate "rel" attributes.
+        // $("[rel='js-register'], [rel='js-login']").on("click")...
+
+        // Click occurs within 'js-controls' element and then is further restricted
+        // to any element with a "rel" attribute containing 'js-'.
+        // The 3rd parameter to "on" is a callback function, so it fires following the click.
+        $modal = $("[rel='js-modal'");
+        $("[rel='js-controls']").on("click", "[rel*='js-']", headerLinkClinks);
+    } 
+
+    var $modal;
+
+    // Public API
+    return {
+        init: init
+    };
+})();
+
+$(document).ready(Header.init);
