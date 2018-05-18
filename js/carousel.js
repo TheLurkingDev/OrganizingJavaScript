@@ -23,6 +23,14 @@ var Carousel = (function() {
 			$items.css({ left: (-position) + "px" });
 		}
 
+		function clickPerson(evt) {
+			// This regular expression takes everything in the rel attribute string
+			// except for the last character and replaces it with "".
+			// Ultimately it returns the very last character, which represents the ID.
+			var ID = $(evt.target).attr("rel").replace(/^.*(\d+)$/,"$1");
+			Details.loadPerson(ID);
+		}
+
 		function init() {
 		
 			var $content = $("[rel=js-carousel] > [rel=js-content]");
@@ -42,6 +50,9 @@ var Carousel = (function() {
 			// acting as callback functions.
 			$left.on("click", scrollLeft);
 			$right.on("click", scrollRight);
+
+			// $items = $("[rel=js-carousel] > [rel=js-content] > [rel=js-items]");
+			$items.on("click", "[rel*='js-item-']", clickPerson);
 		}
 
 		var $items;
@@ -53,5 +64,3 @@ var Carousel = (function() {
 		};
 	
 })();
-
-$(document).ready(Carousel.init);

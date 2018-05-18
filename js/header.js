@@ -40,5 +40,3 @@ var Header = (function() {
         init: init
     };
 })();
-
-$(document).ready(Header.init);

@@ -1,10 +1,5 @@
 var Details = (function () {
-		function loadPerson(evt) {
-			// This regular expression takes everything in the rel attribute string
-			// except for the last character and replaces it with "".
-			// Ultimately it returns the very last character, which represents the ID.
-			var ID = $(evt.target).attr("rel").replace(/^.*(\d+)$/,"$1");
-			
+		function loadPerson(ID) {
 			// Use the ID to load the appropriate html document via ajax request
 			// and dispaly it within the $content element.
 			$.ajax("details/" + ID + ".html", { dataType:"text" }).then(function(contents) {
@@ -13,11 +8,7 @@ var Details = (function () {
 		}
 		
 		function init() {
-		
-			$items = $("[rel=js-carousel] > [rel=js-content] > [rel=js-items]");
-			$content = $("[rel=js-details]");
-
-			$items.on("click", "[rel*='js-item-']", loadPerson);
+			$content = $("[rel=js-details]");			
 
 			// on click of a carousel item, do an Ajax request for
 			// the "details/2.html" (or whatever) file for the person
@@ -29,13 +20,11 @@ var Details = (function () {
 			// event handlers to each item in the carousel.
 		}
 
-		var $items;
 		var $content;
 
 		return {
-			init: init
+			init: init,
+			loadPerson: loadPerson
 		};
 	
 })();
-
-$(document).ready(Details.init);
