@@ -35,6 +35,8 @@ var Header = (function() {
 
     var $modal;
 
+    EVT.on("init", init);
+
     // Public API
     return {
         init: init

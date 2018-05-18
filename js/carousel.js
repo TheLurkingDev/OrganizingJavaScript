@@ -28,7 +28,9 @@ var Carousel = (function() {
 			// except for the last character and replaces it with "".
 			// Ultimately it returns the very last character, which represents the ID.
 			var ID = $(evt.target).attr("rel").replace(/^.*(\d+)$/,"$1");
-			Details.loadPerson(ID);
+			
+			// Publishing an event.
+			EVT.emit("person-clicked", ID);			
 		}
 
 		function init() {
@@ -58,6 +60,8 @@ var Carousel = (function() {
 		var $items;
 		var position;
 		var maxPosition;
+
+		EVT.on("init", init);
 
 		return {
 			init: init

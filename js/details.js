@@ -18,9 +18,14 @@ var Details = (function () {
 			// (aka "event delegation"), by attaching a single event
 			// handler the `$content` element rather than individual
 			// event handlers to each item in the carousel.
+
+			// Adding an event listener
+			EVT.on("person-clicked", loadPerson);
 		}
 
 		var $content;
+
+		EVT.on("init", init);
 
 		return {
 			init: init,
